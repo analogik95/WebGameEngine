@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Game Engine Demo</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: #1a1a1a;
+    }
+
+    #gameCanvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    #info {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 14px;
+      max-width: 300px;
+    }
+
+    #info h2 {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+    }
+
+    #info p {
+      margin: 5px 0;
+    }
+
+    #controls {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      color: white;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas"></canvas>
+
+  <div id="info">
+    <h2>Web Game Engine Demo</h2>
+    <p>FPS: <span id="fps">0</span></p>
+    <p>Objects: <span id="objects">0</span></p>
+    <p>Frame: <span id="frame">0</span></p>
+  </div>
+
+  <div id="controls">
+    <strong>Controls:</strong><br>
+    WASD - Move Camera<br>
+    Arrow Keys - Rotate View<br>
+    Q/E - Move Up/Down<br>
+    Mouse - Look Around
+  </div>
+
+  <script type="module">
+    // This is a placeholder - in production, you'd import from the built module
+    // import * as Engine from '../dist/index.js';
+
+    console.log('Demo scene loading...');
+    console.log('To run this demo:');
+    console.log('1. Run: npm install');
+    console.log('2. Run: npm run build');
+    console.log('3. Serve the dist folder with a local server');
+    console.log('4. Import the engine and create your scene');
+
+    // Demo code structure (to be implemented after build):
+    /*
+    import {
+      Engine,
+      Scene,
+      GameObject,
+      Camera,
+      MeshRenderer,
+      Light,
+      Mesh,
+      Material,
+      Shader,
+      ShaderLibrary,
+      Vector3,
+      Time
+    } from '../dist/index.js';
+
+    // Initialize
+    const canvas = document.getElementById('gameCanvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const engine = Engine.instance;
+    engine.initialize(canvas);
+
+    // Create scene
+    const scene = engine.sceneManager.createScene('MainScene');
+
+    // Create camera
+    const cameraObj = scene.createGameObject('MainCamera');
+    const camera = cameraObj.addComponent(Camera);
+    camera.backgroundColor = [0.2, 0.3, 0.4, 1.0];
+    cameraObj.transform.position.set(0, 2, 5);
+    cameraObj.transform.lookAt(new Vector3(0, 0, 0));
+
+    // Create light
+    const lightObj = scene.createGameObject('DirectionalLight');
+    const light = lightObj.addComponent(Light);
+    light.color.set(1, 1, 1);
+    light.intensity = 1;
+    lightObj.transform.rotation.setFromEuler(-Math.PI / 4, Math.PI / 4, 0);
+
+    // Create shader and material
+    const shader = new Shader(
+      engine.gl,
+      ShaderLibrary.litVertexShader,
+      ShaderLibrary.litFragmentShader
+    );
+
+    const material = new Material(shader);
+    material.color = [0.5, 0.7, 1.0, 1.0];
+
+    // Create cube
+    const cubeObj = scene.createGameObject('Cube');
+    const cubeRenderer = cubeObj.addComponent(MeshRenderer);
+    cubeRenderer.mesh = Mesh.createCube(1);
+    cubeRenderer.material = material;
+
+    // Create sphere
+    const sphereObj = scene.createGameObject('Sphere');
+    const sphereRenderer = sphereObj.addComponent(MeshRenderer);
+    sphereRenderer.mesh = Mesh.createSphere(0.5, 32);
+    sphereRenderer.material = material;
+    sphereObj.transform.position.set(2, 0, 0);
+
+    // Create plane (ground)
+    const planeObj = scene.createGameObject('Ground');
+    const planeRenderer = planeObj.addComponent(MeshRenderer);
+    planeRenderer.mesh = Mesh.createPlane(10, 10);
+    planeRenderer.material = material;
+    planeObj.transform.position.set(0, -1, 0);
+
+    // Load scene and start engine
+    await engine.sceneManager.loadScene('MainScene');
+    engine.start();
+
+    // Update UI
+    function updateUI() {
+      document.getElementById('fps').textContent = Math.round(Time.fps);
+      document.getElementById('objects').textContent = scene.gameObjects.length;
+      document.getElementById('frame').textContent = Time.frameCount;
+      requestAnimationFrame(updateUI);
+    }
+    updateUI();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+    */
+  </script>
+</body>
+</html>
