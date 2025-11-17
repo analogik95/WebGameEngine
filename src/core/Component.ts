@@ -26,7 +26,7 @@ export abstract class Component {
   /**
    * The Transform component of the GameObject
    */
-  get transform() {
+  get transform(): any {
     return this._gameObject?.transform || null;
   }
 

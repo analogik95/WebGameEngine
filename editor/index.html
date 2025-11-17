@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Game Engine - Editor</title>
+    <link rel="stylesheet" href="css/editor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Menu Bar -->
+    <div id="menuBar" class="menu-bar">
+        <div class="menu-section">
+            <button class="menu-item" onclick="editor.newScene()">
+                <i class="fas fa-file"></i> New Scene
+            </button>
+            <button class="menu-item" onclick="editor.openScene()">
+                <i class="fas fa-folder-open"></i> Open
+            </button>
+            <button class="menu-item" onclick="editor.saveScene()">
+                <i class="fas fa-save"></i> Save
+            </button>
+        </div>
+
+        <div class="menu-section">
+            <button class="menu-item" id="playButton" onclick="editor.togglePlay()">
+                <i class="fas fa-play"></i> Play
+            </button>
+            <button class="menu-item" id="pauseButton" onclick="editor.pause()" disabled>
+                <i class="fas fa-pause"></i> Pause
+            </button>
+            <button class="menu-item" id="stopButton" onclick="editor.stop()" disabled>
+                <i class="fas fa-stop"></i> Stop
+            </button>
+        </div>
+
+        <div class="menu-section">
+            <button class="menu-item" onclick="editor.createGameObject('Empty')">
+                <i class="fas fa-cube"></i> Create Empty
+            </button>
+            <button class="menu-item" onclick="editor.createGameObject('Cube')">
+                <i class="fas fa-cube"></i> Cube
+            </button>
+            <button class="menu-item" onclick="editor.createGameObject('Sphere')">
+                <i class="fas fa-circle"></i> Sphere
+            </button>
+            <button class="menu-item" onclick="editor.createGameObject('Plane')">
+                <i class="fas fa-square"></i> Plane
+            </button>
+            <button class="menu-item" onclick="editor.createGameObject('Light')">
+                <i class="fas fa-lightbulb"></i> Light
+            </button>
+            <button class="menu-item" onclick="editor.createGameObject('Camera')">
+                <i class="fas fa-camera"></i> Camera
+            </button>
+        </div>
+
+        <div class="menu-section right">
+            <span class="fps-counter" id="fpsCounter">FPS: 60</span>
+        </div>
+    </div>
+
+    <!-- Main Editor Layout -->
+    <div id="editorLayout" class="editor-layout">
+
+        <!-- Left Panel: Hierarchy -->
+        <div id="hierarchyPanel" class="panel hierarchy-panel">
+            <div class="panel-header">
+                <i class="fas fa-sitemap"></i> Hierarchy
+                <button class="panel-button" onclick="editor.refreshHierarchy()">
+                    <i class="fas fa-sync"></i>
+                </button>
+            </div>
+            <div class="panel-content">
+                <div id="hierarchyTree" class="hierarchy-tree"></div>
+            </div>
+        </div>
+
+        <!-- Center: Viewport -->
+        <div id="viewportPanel" class="panel viewport-panel">
+            <div class="viewport-header">
+                <div class="viewport-tools">
+                    <button class="tool-button active" id="toolSelect" onclick="editor.selectTool('select')" title="Select (Q)">
+                        <i class="fas fa-mouse-pointer"></i>
+                    </button>
+                    <button class="tool-button" id="toolMove" onclick="editor.selectTool('move')" title="Move (W)">
+                        <i class="fas fa-arrows-alt"></i>
+                    </button>
+                    <button class="tool-button" id="toolRotate" onclick="editor.selectTool('rotate')" title="Rotate (E)">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                    <button class="tool-button" id="toolScale" onclick="editor.selectTool('scale')" title="Scale (R)">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </button>
+                </div>
+                <div class="viewport-settings">
+                    <button class="setting-button" onclick="editor.toggleGrid()" title="Toggle Grid">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="setting-button" onclick="editor.toggleWireframe()" title="Toggle Wireframe">
+                        <i class="fas fa-project-diagram"></i>
+                    </button>
+                    <select id="cameraView" onchange="editor.setCameraView(this.value)">
+                        <option value="free">Free</option>
+                        <option value="top">Top</option>
+                        <option value="bottom">Bottom</option>
+                        <option value="left">Left</option>
+                        <option value="right">Right</option>
+                        <option value="front">Front</option>
+                        <option value="back">Back</option>
+                    </select>
+                </div>
+            </div>
+            <canvas id="gameCanvas" class="game-canvas"></canvas>
+        </div>
+
+        <!-- Right Panel: Inspector -->
+        <div id="inspectorPanel" class="panel inspector-panel">
+            <div class="panel-header">
+                <i class="fas fa-info-circle"></i> Inspector
+            </div>
+            <div class="panel-content" id="inspectorContent">
+                <div class="no-selection">
+                    <i class="fas fa-cube"></i>
+                    <p>Select a GameObject to view its properties</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Panel: Assets & Console -->
+        <div id="bottomPanel" class="panel bottom-panel">
+            <div class="panel-tabs">
+                <button class="tab-button active" onclick="editor.switchBottomTab('assets')">
+                    <i class="fas fa-folder"></i> Assets
+                </button>
+                <button class="tab-button" onclick="editor.switchBottomTab('console')">
+                    <i class="fas fa-terminal"></i> Console
+                </button>
+            </div>
+            <div class="panel-content">
+                <!-- Assets Tab -->
+                <div id="assetsTab" class="tab-content active">
+                    <div class="assets-toolbar">
+                        <button onclick="editor.importAsset()">
+                            <i class="fas fa-upload"></i> Import
+                        </button>
+                        <button onclick="editor.createFolder()">
+                            <i class="fas fa-folder-plus"></i> New Folder
+                        </button>
+                        <input type="text" id="assetSearch" placeholder="Search assets..."
+                               oninput="editor.searchAssets(this.value)">
+                    </div>
+                    <div id="assetsBrowser" class="assets-browser">
+                        <div class="asset-item" data-type="scene">
+                            <i class="fas fa-file"></i>
+                            <span>MainScene.json</span>
+                        </div>
+                        <div class="asset-item" data-type="material">
+                            <i class="fas fa-palette"></i>
+                            <span>DefaultMaterial</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Console Tab -->
+                <div id="consoleTab" class="tab-content">
+                    <div class="console-toolbar">
+                        <button onclick="editor.clearConsole()">
+                            <i class="fas fa-trash"></i> Clear
+                        </button>
+                        <label>
+                            <input type="checkbox" id="consoleInfo" checked> Info
+                        </label>
+                        <label>
+                            <input type="checkbox" id="consoleWarning" checked> Warning
+                        </label>
+                        <label>
+                            <input type="checkbox" id="consoleError" checked> Error
+                        </label>
+                    </div>
+                    <div id="consoleOutput" class="console-output">
+                        <div class="console-message info">
+                            <span class="console-icon"><i class="fas fa-info-circle"></i></span>
+                            <span class="console-text">Editor initialized successfully</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div id="contextMenu" class="context-menu" style="display: none;">
+        <div class="context-item" onclick="editor.duplicateSelected()">
+            <i class="fas fa-copy"></i> Duplicate
+        </div>
+        <div class="context-item" onclick="editor.deleteSelected()">
+            <i class="fas fa-trash"></i> Delete
+        </div>
+        <div class="context-separator"></div>
+        <div class="context-item" onclick="editor.copySelected()">
+            <i class="fas fa-clipboard"></i> Copy
+        </div>
+        <div class="context-item" onclick="editor.pasteSelected()">
+            <i class="fas fa-paste"></i> Paste
+        </div>
+    </div>
+
+    <!-- Load Scripts -->
+    <script type="module" src="../dist/index.js"></script>
+    <script type="module" src="js/editor.js"></script>
+</body>
+</html>

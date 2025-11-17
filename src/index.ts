@@ -14,3 +14,6 @@ export { Light, LightType } from './components/Light';
 
 // Audio exports
 export { AudioSource, AudioManager } from './audio/AudioSource';
+
+// RPG exports
+export * from './rpg';
