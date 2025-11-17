@@ -36,6 +36,17 @@ Experience a playable demo featuring:
 
 See `/GETTING_STARTED.md` for a complete guide!
 
+### **Backend Server** (Node.js + TypeScript)
+- **REST API**: Full authentication and character management
+- **SQLite Database**: Embedded database (no separate server needed!)
+- **JWT Authentication**: Secure token-based auth with bcrypt
+- **Real-time Multiplayer**: Socket.IO WebSocket support
+- **Character System**: Save/load characters, stats, inventory
+- **Multiplayer Events**: Position sync, combat, chat, rooms
+
+**Start Backend:** `cd server && npm install && npm run dev`
+**Documentation:** See `server/README.md` for complete API docs
+
 ## Features
 
 ### Core Systems
@@ -362,6 +373,12 @@ Then open `http://localhost:8080/examples/demo.html`
 
 ## Roadmap
 
+### Completed Features ✅
+
+- **Editor**: Visual scene editor (Unity-like browser editor)
+- **Networking**: Multiplayer support (Node.js backend with Socket.IO)
+- **RPG System**: Character stats, abilities, AI, HUD
+
 ### Planned Features
 
 - **Physics System**: Collision detection, rigid body dynamics, raycasting
@@ -372,8 +389,6 @@ Then open `http://localhost:8080/examples/demo.html`
 - **Post-Processing**: Bloom, depth of field, SSAO
 - **Shadows**: Shadow mapping for lights
 - **Terrain System**: Height-map based terrain
-- **Networking**: Multiplayer support
-- **Editor**: Visual scene editor
 
 ### Optimization Systems
 
