@@ -227,8 +227,8 @@ export class Engine {
           if (!gameObject.activeInHierarchy) continue;
 
           const meshRenderer = gameObject.getComponent(MeshRenderer);
-          if (meshRenderer && meshRenderer.enabled) {
-            meshRenderer.render(gl, viewMatrix, projectionMatrix);
+          if (meshRenderer && meshRenderer.enabled && typeof (meshRenderer as any).render === 'function') {
+            (meshRenderer as any).render(gl, viewMatrix, projectionMatrix);
           }
         }
       }
