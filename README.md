@@ -1,6 +1,40 @@
 # Web Game Engine
 
-A Unity-like 3D game engine for the web, built with TypeScript and WebGL2. This engine provides a component-based architecture for creating interactive 3D experiences that run directly in web browsers.
+A Unity-like 3D game engine for the web, built with TypeScript and WebGL2. **Now with a complete visual editor and RPG system for creating "The Gamer" style games!** 🎮✨
+
+This engine provides a component-based architecture for creating interactive 3D experiences that run directly in web browsers.
+
+## 🌟 What's New!
+
+### **Visual Editor** (Unity-like)
+- **Browser-based scene editor** - Create 3D games visually!
+- Hierarchy, Inspector, Viewport, Assets, and Console panels
+- Real-time editing with instant feedback
+- GameObject creation (primitives, lights, cameras)
+- Transform manipulation (position, rotation, scale)
+- Scene save/load (JSON format)
+- Play/Pause/Stop mode for testing
+
+**Try it:** `npm run editor`
+
+### **Complete RPG System** ("The Gamer" Edition)
+- **CharacterStats**: Full RPG stats (STR, VIT, DEX, INT, WIS, LUCK), leveling, HP/MP
+- **GamerAbility**: Special powers (Observe, ID Create/Escape, Gamer's Mind/Body)
+- **PlayerController**: Third-person action RPG controls with camera
+- **NPCController**: AI with states (Idle, Patrol, Chase, Attack, Flee)
+- **RPGHud**: Beautiful HTML overlay with HP/MP bars, stats, notifications
+
+**Try it:** `npm run serve` → Open `examples/anatoly-demo.html`
+
+### **Demo: Anatoly's Story**
+Experience a playable demo featuring:
+- Anatoly (player with Gamer abilities)
+- Babushka (friendly NPC)
+- Zombie (enemy NPC)
+- Apartment environment
+- Full working HUD
+
+See `/GETTING_STARTED.md` for a complete guide!
 
 ## Features
 
@@ -46,16 +80,35 @@ A Unity-like 3D game engine for the web, built with TypeScript and WebGL2. This 
 - **Time Scale**: Slow-motion and fast-forward effects
 - **FPS Counter**: Performance monitoring
 
-## Installation
+## 🚀 Quick Start
 
+### Installation
 ```bash
 npm install
+npm run build
 ```
+
+### Launch the Visual Editor
+```bash
+npm run editor
+```
+Opens at: `http://localhost:8080/editor/index.html`
+
+### Run the RPG Demo
+```bash
+npm run serve
+```
+Then open: `http://localhost:8080/examples/anatoly-demo.html`
+
+**📖 Complete Guide:** See `/GETTING_STARTED.md` for detailed instructions!
 
 ## Building
 
 ```bash
-npm run build
+npm run build        # Compile TypeScript to JavaScript
+npm run dev          # Watch mode (rebuilds on save)
+npm run serve        # Start HTTP server
+npm run editor       # Build & launch visual editor
 ```
 
 This compiles the TypeScript source to JavaScript in the `dist/` directory.
