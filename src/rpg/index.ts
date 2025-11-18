@@ -18,3 +18,4 @@ export { QuestData, QuestType, QuestStatus, ObjectiveType, QuestObjective, Quest
 // UI
 export { RPGHud } from './ui/RPGHud';
 export { InventoryUI } from './ui/InventoryUI';
+export { QuestUI } from './ui/QuestUI';
